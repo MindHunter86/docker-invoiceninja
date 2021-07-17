@@ -40,7 +40,7 @@ RUN install-php-extensions \
 
 RUN addgroup --system w3ninja \
 	&& adduser --system --disabled-password --home /srv/invoiceninja --shell /sbin/nologin --ingroup w3ninja w3ninja
-COPY --chown=w3ninja:w3ninja /srv/invoiceninja .
+COPY --from=invoiceninja-base-build --chown=w3ninja:w3ninja /srv/invoiceninja .
 RUN rm -rf public storage
 
 USER w3ninja:w3ninja
@@ -59,7 +59,7 @@ FROM alpine:latest as invoiceninja-frontend
 LABEL maintainer="vkom <admin@vkom.cc>"
 
 WORKDIR /srv/invoiceninja
-COPY --chown=root:root /srv/invoiceninja/public .
+COPY --from=invoiceninja-base-build --chown=root:root /srv/invoiceninja/public .
 RUN chmod -R a=rX .
 
 STOPSIGNAL SIGKILL
