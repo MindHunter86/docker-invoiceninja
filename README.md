@@ -1,8 +1,6 @@
 
-#### Invoice Ninja Dockerfiles
+# Invoice Ninja Dockerfiles
 Customization of https://github.com/invoiceninja/dockerfiles
-
-### Instruction
 
 ## Mounts
 backend:
@@ -26,7 +24,7 @@ php artisan migrate:status
 php artisan migrate --force
 php artisan ninja:create-account $email $password
 
-# Every start ? :
+## Every start ? :
 php artisan migrate:status
 php artisan migrate --force
 
