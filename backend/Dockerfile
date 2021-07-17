@@ -1,22 +1,8 @@
 # -*- coding: utf-8 -*-
 # vim: ft=Dockerfile
 
-
-FROM node:lts-alpine as invoiceninja-base-build
+FROM registry.is-docker.mh00p.net/mytime-base:latest as invoiceninja-base-build
 LABEL maintainer="vkom <admin@vkom.cc>"
-
-ARG TARBALL_VERSION="v5.2.12"
-ADD https://github.com/invoiceninja/invoiceninja/tarball/${TARBALL_VERSION} /tmp/invoiceninja_${TARBALL_VERSION}.tgz
-
-WORKDIR /srv/invoiceninja
-
-RUN tar --strip-components=1 -xf /tmp/invoiceninja_${TARBALL_VERSION}.tgz -C . \
-	&& mkdir -p public/logo storage \
-	&& rm -rf docs tests .env.example
-
-RUN --mount=target=node_modules,type=cache \
-	npm install --production \
-	&& npm run production
 
 
 FROM php:7.4-fpm-alpine3.13 as invoiceninja-backend
@@ -53,15 +39,3 @@ RUN apk add --no-cache tzdata \
 	&& echo 'Europe/Moscow' > /etc/timezone
 
 CMD ["php-fpm"]
-
-
-FROM alpine:latest as invoiceninja-frontend
-LABEL maintainer="vkom <admin@vkom.cc>"
-
-WORKDIR /srv/invoiceninja
-COPY --from=invoiceninja-base-build --chown=root:root /srv/invoiceninja/public .
-RUN chmod -R a=rX .
-
-STOPSIGNAL SIGKILL
-
-CMD ["cat", "/dev/stdout"]

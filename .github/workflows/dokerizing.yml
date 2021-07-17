@@ -42,9 +42,21 @@ jobs:
         username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
         password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
     - run: ls -lah ; pwd
-    - uses: docker/build-push-action@master
+    - name: InvoiceNinja Base package building
+      uses: docker/build-push-action@v2
       with:
-        context: .
+        context: base
         push: true
-        tags: registry.is-docker.mh00p.net/invoiceninja-frontend:latest,registry.is-docker.mh00p.net/invoiceninja-backend:latest
-        # ,registry.is-docker.mh00p.net/tsn:${{ needs.parse_tags.outputs.build_date }}-${{ github.run_id }}
+        tags: registry.is-docker.mh00p.net/invoiceninja-base:latest
+    - name: InvoiceNinja Backend package building
+      uses: docker/build-push-action@v2
+      with:
+        context: backend
+        push: true
+        tags: registry.is-docker.mh00p.net/invoiceninja-backend:latest
+    - name: InvoiceNinja Frontend package building
+      uses: docker/build-push-action@v2
+      with:
+        context: frontend
+        push: true
+        tags: registry.is-docker.mh00p.net/invoiceninja-frontend:latest
