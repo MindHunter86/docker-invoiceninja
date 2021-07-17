@@ -46,5 +46,5 @@ jobs:
       with:
         context: .
         push: true
-        tags: registry.is-docker.mh00p.net/invoiceninja-frontend:latest
+        tags: registry.is-docker.mh00p.net/invoiceninja-frontend:latest,registry.is-docker.mh00p.net/invoiceninja-backend:latest
         # ,registry.is-docker.mh00p.net/tsn:${{ needs.parse_tags.outputs.build_date }}-${{ github.run_id }}
