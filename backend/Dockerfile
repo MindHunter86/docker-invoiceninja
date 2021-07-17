@@ -34,8 +34,8 @@ USER w3ninja:w3ninja
 ENV IS_DOCKER true
 RUN /usr/local/bin/composer install --no-dev --quiet
 
-RUN apk add --no-cache tzdata \
-	&& ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime \
-	&& echo 'Europe/Moscow' > /etc/timezone
+# RUN apk add --no-cache tzdata \
+# 	&& ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime \
+# 	&& echo 'Europe/Moscow' > /etc/timezone
 
 CMD ["php-fpm"]
