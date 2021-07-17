@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # vim: ft=Dockerfile
 
-FROM registry.is-docker.mh00p.net/mytime-base:latest as invoiceninja-base-build
+FROM registry.is-docker.mh00p.net/invoiceninja-base:latest as invoiceninja-base-build
 LABEL maintainer="vkom <admin@vkom.cc>"
 
 
